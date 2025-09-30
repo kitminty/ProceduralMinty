@@ -39,32 +39,32 @@ class ImageFollowingMousePanel extends JPanel implements MouseMotionListener {
     Double gspeed = 0.00008;
     double tickCount = 0;
     private final Point2D.Double circle1 = new Point2D.Double(150, 150);
-    private Point2D.Double circle2 = new Point2D.Double(150, 150);
-    private Point2D.Double circle3 = new Point2D.Double(150, 150);
-    private Point2D.Double circle4 = new Point2D.Double(150, 150);
-    private Point2D.Double circle5 = new Point2D.Double(150, 150);
-    private Point2D.Double circle6 = new Point2D.Double(150, 150);
-    private Point2D.Double circle7 = new Point2D.Double(150, 150);
-    private Point2D.Double circle8 = new Point2D.Double(150, 150);
-    private Point2D.Double circle9 = new Point2D.Double(150, 150);
-    private Point2D.Double circle10 = new Point2D.Double(150, 150);
-    private Point2D.Double circle11 = new Point2D.Double(150, 150);
-    private Point2D.Double circle12 = new Point2D.Double(150, 150);
-    private Point2D.Double circle13 = new Point2D.Double(150, 150);
-    private Point2D.Double circle14 = new Point2D.Double(150, 150);
-    private Point2D.Double circle15 = new Point2D.Double(150, 150);
-    private Point2D.Double circle16 = new Point2D.Double(150, 150);
-    private Point2D.Double circle17 = new Point2D.Double(150, 150);
-    private Point2D.Double circle18 = new Point2D.Double(150, 150);
-    private Point2D.Double circle19 = new Point2D.Double(150, 150);
-    private Point2D.Double circle20 = new Point2D.Double(150, 150);
-    private Point2D.Double circle21 = new Point2D.Double(150, 150);
-    private Point2D.Double circle22 = new Point2D.Double(150, 150);
-    private Point2D.Double circle23 = new Point2D.Double(150, 150);
-    private Point2D.Double circle24 = new Point2D.Double(150, 150);
-    private Point2D.Double circle25 = new Point2D.Double(150, 150);
-    private Point2D.Double circle26 = new Point2D.Double(150, 150);
-    private Point2D.Double circle27 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle2 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle3 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle4 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle5 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle6 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle7 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle8 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle9 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle10 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle11 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle12 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle13 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle14 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle15 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle16 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle17 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle18 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle19 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle20 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle21 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle22 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle23 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle24 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle25 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle26 = new Point2D.Double(150, 150);
+    private final Point2D.Double circle27 = new Point2D.Double(150, 150);
 
     public ImageFollowingMousePanel() {
         addMouseMotionListener(this);
@@ -119,11 +119,11 @@ class ImageFollowingMousePanel extends JPanel implements MouseMotionListener {
 
              */
         };
-        scheduler.scheduleAtFixedRate(circlerestrain, 0, 1, TimeUnit.NANOSECONDS);
-        scheduler.scheduleAtFixedRate(headcircle, 0, 100, TimeUnit.MICROSECONDS);
+        scheduler.scheduleAtFixedRate(circlerestrain, 0, 1, TimeUnit.MICROSECONDS); //this was nanoseconds but it probably shouldn't be
+        scheduler.scheduleAtFixedRate(headcircle, 0, 1, TimeUnit.MICROSECONDS);
     }
 
-    public Point2D.Double distancerestraint(Point2D.Double restrainingpoint, Point2D.Double restrainedpoint) {
+    public void distancerestraint(Point2D.Double restrainingpoint, Point2D.Double restrainedpoint) {
         double veccirx = (restrainedpoint.x)-restrainingpoint.x;
         double vecciry = (restrainedpoint.y)-restrainingpoint.y;
         double magnitude = sqrt(pow(veccirx,2)+pow(vecciry,2));
@@ -134,7 +134,6 @@ class ImageFollowingMousePanel extends JPanel implements MouseMotionListener {
             restrainedpoint.x=restrainedpoint.x-normalisedvectorx*speed;
             restrainedpoint.y=restrainedpoint.y-normalisedvectory*speed;
         }
-        return new Point2D.Double(restrainedpoint.x, restrainedpoint.y);
     }
 
     public void gravity() {
