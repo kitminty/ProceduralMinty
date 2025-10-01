@@ -33,8 +33,7 @@ class ImageFollowingMousePanel extends JPanel implements MouseMotionListener {
     ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
     private Point mousePoint;
     double distance = 10;
-    double speed = 0.1;
-    Double gspeed = 0.00008;
+    double gspeed = 0.00008;
     int segments = 20;
     int segmentiterator = 0;
     double tickCount = 0;
@@ -80,15 +79,14 @@ class ImageFollowingMousePanel extends JPanel implements MouseMotionListener {
     }
 
     public void distancerestraint(Point2D.Double restrainingpoint, Point2D.Double restrainedpoint) {
-        double veccirx = (restrainedpoint.x)-restrainingpoint.x;
-        double vecciry = (restrainedpoint.y)-restrainingpoint.y;
-        double magnitude = sqrt(pow(veccirx,2)+pow(vecciry,2));
-        double normalisedvectorx = veccirx/magnitude;
-        double normalisedvectory = vecciry/magnitude;
+        double magx = (restrainedpoint.x-restrainingpoint.x)/sqrt(pow(restrainedpoint.x-restrainingpoint.x,2)+pow(restrainedpoint.y-restrainingpoint.y,2));
+        double magy = (restrainedpoint.y-restrainingpoint.y)/sqrt(pow(restrainedpoint.x-restrainingpoint.x,2)+pow(restrainedpoint.y-restrainingpoint.y,2));
+        double diffx = (restrainedpoint.x-restrainingpoint.x)-distance*magx;
+        double diffy = (restrainedpoint.y-restrainingpoint.y)-distance*magy;
 
-        if (((pow(restrainingpoint.x-restrainedpoint.x, 2) + pow(restrainingpoint.y-restrainedpoint.y, 2)) > pow(distance, 2))) {
-            restrainedpoint.x=restrainedpoint.x-normalisedvectorx*speed;
-            restrainedpoint.y=restrainedpoint.y-normalisedvectory*speed;
+        if (sqrt(pow(restrainedpoint.x-restrainingpoint.x,2)+pow(restrainedpoint.y-restrainingpoint.y,2)) > distance) {
+            restrainedpoint.x=restrainedpoint.x-diffx;
+            restrainedpoint.y=restrainedpoint.y-diffy;
         }
     }
 
