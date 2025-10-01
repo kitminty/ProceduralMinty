@@ -15,8 +15,6 @@ import javax.swing.SwingUtilities;
 import static java.lang.Math.*;
 
 public class Main {
-
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Main::createAndShowGUI);
     }
@@ -29,7 +27,6 @@ public class Main {
         f.setLocationRelativeTo(null);
         f.setVisible(true);
     }
-
 }
 
 class ImageFollowingMousePanel extends JPanel implements MouseMotionListener {
@@ -39,27 +36,27 @@ class ImageFollowingMousePanel extends JPanel implements MouseMotionListener {
     double speed = 0.1;
     Double gspeed = 0.00008;
     int segments = 20;
+    int segmentiterator = 0;
     double tickCount = 0;
     private final ArrayList<Point2D.Double> Circles = new ArrayList<>();
 
     public ImageFollowingMousePanel() {  //this happens once
         addMouseMotionListener(this);
-        int i = 0;
-        while (i <= segments) {
+        while (segmentiterator <= segments) {
             Circles.add(new Point2D.Double(150, 150));
-            i++;
+            segmentiterator++;
         }
-
 
         Runnable circlerestrain = () -> {
             if (mousePoint != null) {
-                for (int i2 = 0; i2 < segments; i2++) {
-                    distancerestraint(Circles.get(i2), Circles.get(i2+1));
+                for (int i = 0; i < segments; i++) {
+                    distancerestraint(Circles.get(i), Circles.get(i+1));
                 }
                 repaint();
             }
             //gravity();
         };
+
         Runnable headcircle = () -> {
             tickCount=tickCount+0.01;
 
@@ -75,9 +72,9 @@ class ImageFollowingMousePanel extends JPanel implements MouseMotionListener {
             circle1.x = lemx+500;
             circle1.y = lemz+500;
             System.out.println(tickCount);
-
              */
         };
+
         scheduler.scheduleAtFixedRate(circlerestrain, 0, 1, TimeUnit.MICROSECONDS); //this was nanoseconds but it probably shouldn't be
         scheduler.scheduleAtFixedRate(headcircle, 0, 1, TimeUnit.MICROSECONDS);
     }
@@ -96,15 +93,15 @@ class ImageFollowingMousePanel extends JPanel implements MouseMotionListener {
     }
 
     public void gravity() {
-        for (int i2 = 1; i2 < segments; i2++) {
-            Circles.get(i2).y=Circles.get(i2).y+gspeed;
+        for (int i = 1; i < segments; i++) {
+            Circles.get(i).y=Circles.get(i).y+gspeed;
         }
     }
 
     protected void paintComponent(Graphics gr) {
         super.paintComponent(gr);
-        for (int i2 = 0; i2 < segments; i2++) {
-            drawcircle(gr, 50, 50, Circles.get(i2));
+        for (int i = 0; i < segments; i++) {
+            drawcircle(gr, 50, 50, Circles.get(i));
         }
     }
 
@@ -129,5 +126,4 @@ class ImageFollowingMousePanel extends JPanel implements MouseMotionListener {
         mousePoint = e.getPoint();
         repaint();
     }
-
 }
