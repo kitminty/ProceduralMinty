@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -37,66 +38,24 @@ class ImageFollowingMousePanel extends JPanel implements MouseMotionListener {
     double distance = 10;
     double speed = 0.1;
     Double gspeed = 0.00008;
+    int segments = 20;
     double tickCount = 0;
-    private final Point2D.Double circle1 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle2 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle3 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle4 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle5 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle6 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle7 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle8 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle9 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle10 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle11 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle12 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle13 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle14 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle15 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle16 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle17 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle18 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle19 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle20 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle21 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle22 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle23 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle24 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle25 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle26 = new Point2D.Double(150, 150);
-    private final Point2D.Double circle27 = new Point2D.Double(150, 150);
+    private final ArrayList<Point2D.Double> Circles = new ArrayList<>();
 
-    public ImageFollowingMousePanel() {
+    public ImageFollowingMousePanel() {  //this happens once
         addMouseMotionListener(this);
+        int i = 0;
+        while (i <= segments) {
+            Circles.add(new Point2D.Double(150, 150));
+            i++;
+        }
+
 
         Runnable circlerestrain = () -> {
             if (mousePoint != null) {
-                distancerestraint(circle1, circle2);
-                distancerestraint(circle2, circle3);
-                distancerestraint(circle3, circle4);
-                distancerestraint(circle4, circle5);
-                distancerestraint(circle5, circle6);
-                distancerestraint(circle6, circle7);
-                distancerestraint(circle7, circle8);
-                distancerestraint(circle8, circle9);
-                distancerestraint(circle9, circle10);
-                distancerestraint(circle10, circle11);
-                distancerestraint(circle11, circle12);
-                distancerestraint(circle12, circle13);
-                distancerestraint(circle13, circle14);
-                distancerestraint(circle14, circle15);
-                distancerestraint(circle15, circle16);
-                distancerestraint(circle16, circle17);
-                distancerestraint(circle17, circle18);
-                distancerestraint(circle18, circle19);
-                distancerestraint(circle19, circle20);
-                distancerestraint(circle20, circle21);
-                distancerestraint(circle21, circle22);
-                distancerestraint(circle22, circle23);
-                distancerestraint(circle23, circle24);
-                distancerestraint(circle24, circle25);
-                distancerestraint(circle25, circle26);
-                distancerestraint(circle26, circle27);
+                for (int i2 = 0; i2 < segments; i2++) {
+                    distancerestraint(Circles.get(i2), Circles.get(i2+1));
+                }
                 repaint();
             }
             //gravity();
@@ -105,8 +64,8 @@ class ImageFollowingMousePanel extends JPanel implements MouseMotionListener {
             tickCount=tickCount+0.01;
 
             if (mousePoint != null) {
-                circle1.x = mousePoint.x-25;
-                circle1.y = mousePoint.y-25;
+                Circles.getFirst().x = mousePoint.x-25;
+                Circles.getFirst().y = mousePoint.y-25;
             }
 
             /*
@@ -137,63 +96,16 @@ class ImageFollowingMousePanel extends JPanel implements MouseMotionListener {
     }
 
     public void gravity() {
-        circle2.y=circle2.y+gspeed;
-        circle3.y=circle3.y+gspeed;
-        circle4.y=circle4.y+gspeed;
-        circle5.y=circle5.y+gspeed;
-        circle6.y=circle6.y+gspeed;
-        circle7.y=circle7.y+gspeed;
-        circle8.y=circle8.y+gspeed;
-        circle9.y=circle9.y+gspeed;
-        circle10.y=circle10.y+gspeed;
-        circle11.y=circle11.y+gspeed;
-        circle12.y=circle12.y+gspeed;
-        circle13.y=circle13.y+gspeed;
-        circle14.y=circle14.y+gspeed;
-        circle15.y=circle15.y+gspeed;
-        circle16.y=circle16.y+gspeed;
-        circle17.y=circle17.y+gspeed;
-        circle18.y=circle18.y+gspeed;
-        circle19.y=circle19.y+gspeed;
-        circle20.y=circle20.y+gspeed;
-        circle21.y=circle21.y+gspeed;
-        circle22.y=circle22.y+gspeed;
-        circle23.y=circle23.y+gspeed;
-        circle24.y=circle24.y+gspeed;
-        circle25.y=circle25.y+gspeed;
-        circle26.y=circle26.y+gspeed;
-        circle27.y=circle27.y+gspeed;
+        for (int i2 = 1; i2 < segments; i2++) {
+            Circles.get(i2).y=Circles.get(i2).y+gspeed;
+        }
     }
 
     protected void paintComponent(Graphics gr) {
         super.paintComponent(gr);
-        drawcircle(gr, 50, 50, circle1);
-        drawcircle(gr, 50, 50, circle2);
-        drawcircle(gr, 50, 50, circle3);
-        drawcircle(gr, 50, 50, circle4);
-        drawcircle(gr, 50, 50, circle5);
-        drawcircle(gr, 50, 50, circle6);
-        drawcircle(gr, 50, 50, circle7);
-        drawcircle(gr, 50, 50, circle8);
-        drawcircle(gr, 50, 50, circle9);
-        drawcircle(gr, 50, 50, circle10);
-        drawcircle(gr, 50, 50, circle11);
-        drawcircle(gr, 50, 50, circle12);
-        drawcircle(gr, 50, 50, circle13);
-        drawcircle(gr, 50, 50, circle14);
-        drawcircle(gr, 50, 50, circle15);
-        drawcircle(gr, 50, 50, circle16);
-        drawcircle(gr, 50, 50, circle17);
-        drawcircle(gr, 50, 50, circle18);
-        drawcircle(gr, 50, 50, circle19);
-        drawcircle(gr, 50, 50, circle20);
-        drawcircle(gr, 50, 50, circle21);
-        drawcircle(gr, 50, 50, circle22);
-        drawcircle(gr, 50, 50, circle23);
-        drawcircle(gr, 50, 50, circle24);
-        drawcircle(gr, 50, 50, circle25);
-        drawcircle(gr, 50, 50, circle26);
-        drawcircle(gr, 50, 50, circle27);
+        for (int i2 = 0; i2 < segments; i2++) {
+            drawcircle(gr, 50, 50, Circles.get(i2));
+        }
     }
 
     public void drawcircle(Graphics gr, int width, int height, Point2D.Double circle) {
