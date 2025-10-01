@@ -34,9 +34,10 @@ class ImageFollowingMousePanel extends JPanel implements MouseMotionListener {
     private Point mousePoint;
     double distance = 10;
     double gspeed = 0.00008;
-    int segments = 20;
+    int segments = 40;
     int segmentiterator = 0;
     double tickCount = 0;
+    boolean gravity = false;
     private final ArrayList<Point2D.Double> Circles = new ArrayList<>();
 
     public ImageFollowingMousePanel() {
@@ -47,17 +48,15 @@ class ImageFollowingMousePanel extends JPanel implements MouseMotionListener {
         }
 
         Runnable circlerestrain = () -> {
-            if (mousePoint != null) {
-                for (int i = 0; i < segments; i++) {
-                    distancerestraint(Circles.get(i), Circles.get(i+1));
-                }
-                repaint();
+            for (int i = 0; i < segments; i++) {
+                distancerestraint(Circles.get(i), Circles.get(i+1));
             }
-            //gravity();
+            repaint();
+            if (gravity) gravity();
         };
 
         Runnable headcircle = () -> {
-            tickCount=tickCount+0.01;
+            tickCount=tickCount+0.000001;
 
             if (mousePoint != null) {
                 Circles.getFirst().x = mousePoint.x-25;
@@ -67,11 +66,10 @@ class ImageFollowingMousePanel extends JPanel implements MouseMotionListener {
             /*
             int lemsize = 500;
             double lemx = lemsize*((2*cos(tickCount))/(3-cos(2*tickCount)));
-            double lemz = lemsize*((sin(2*tickCount))/(3-cos(2*tickCount)));
-            circle1.x = lemx+500;
-            circle1.y = lemz+500;
-            System.out.println(tickCount);
-             */
+            double lemy = lemsize*((sin(2*tickCount))/(3-cos(2*tickCount)));
+            Circles.getFirst().x = lemx+500;
+            Circles.getFirst().y = lemy+500;
+            */
         };
 
         scheduler.scheduleAtFixedRate(circlerestrain, 0, 1, TimeUnit.MICROSECONDS); //this was nanoseconds but it probably shouldn't be
