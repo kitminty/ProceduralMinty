@@ -40,7 +40,7 @@ class ImageFollowingMousePanel extends JPanel implements MouseMotionListener {
     double tickCount = 0;
     private final ArrayList<Point2D.Double> Circles = new ArrayList<>();
 
-    public ImageFollowingMousePanel() {  //this happens once
+    public ImageFollowingMousePanel() {
         addMouseMotionListener(this);
         while (segmentiterator <= segments) {
             Circles.add(new Point2D.Double(150, 150));
